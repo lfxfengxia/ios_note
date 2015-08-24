@@ -202,3 +202,29 @@
 	detachNewThreadSelector 在一个新的线程中调用目标selector 用户指定目标线程
 	performSelectorInBackground 在一个新的线程中调用目标selector 自动指定线程
 	performSelectorOnMainThread 在主线程中调用目标的selector 如所有界面相关的操作必须在main thread中完成（uikit, appkit相关)
+	
+### 6. Button占有其父试图的点击事件，即扩大Button的点击区域
+#### oc版本
+
+	@interface LargeButton : UIButton
+
+	@end
+	
+	@implementation LargeButton
+	
+	- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+	
+	    return self;
+	}
+	
+	@end
+	
+#### swift版本
+
+	class LargeButton: UIButton {
+	    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+	        return self
+	    }
+	}
+	
+#### 	用法，用LargeButton创建按钮对象，添加target即可实现在点击按钮对象父试图的一定范围内可以响应按钮对象的selector方法。
