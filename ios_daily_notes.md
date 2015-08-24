@@ -196,6 +196,12 @@
 
 [Autolayout 教程 二 ](http://www.cocoachina.com/ios/20141014/9908.html)
 
+[手写代码约束 教程 一 ](http://blog.csdn.net/yangtiang/article/details/46483999)
+
+[手写代码约束 教程 二 ](http://blog.csdn.net/yangtiang/article/details/46492083)
+
+[手写代码约束 教程 三 ](http://blog.csdn.net/yangtiang/article/details/46795231)
+
 ### 5. NSThread
 
 	performselector 直接在当前线程中进行调用目标selector
@@ -203,7 +209,7 @@
 	performSelectorInBackground 在一个新的线程中调用目标selector 自动指定线程
 	performSelectorOnMainThread 在主线程中调用目标的selector 如所有界面相关的操作必须在main thread中完成（uikit, appkit相关)
 	
-### 6. Button占有其父试图的点击事件，即扩大Button的点击区域
+### 6. Button占有其父视图的点击事件，即扩大Button的点击区域
 #### oc版本
 
 	@interface LargeButton : UIButton
@@ -227,4 +233,8 @@
 	    }
 	}
 	
-#### 	用法，用LargeButton创建按钮对象，添加target即可实现在点击按钮对象父试图的一定范围内可以响应按钮对象的selector方法。
+#### 	用法，用LargeButton创建按钮对象，添加target即可实现在点击按钮对象父视图的一定范围内可以响应按钮对象的selector方法。
+
+### Xcode 7 UIStackView
+
+[UIStackView 教程 ](http://www.cocoachina.com/ios/20150820/13118.html)
