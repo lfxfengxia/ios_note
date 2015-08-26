@@ -167,9 +167,11 @@
 	
 ### 2. 相机拍照
 
+#### 调出相机
+
 	UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
 	imagePicker.editing = YES;
-	imagePicker.allowsEditing = YES;
+	imagePicker.allowsEditing = YES; //设置未可编辑状态
 	imagePicker.delegate = self;
 	imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
 	[self presentViewController:imagePicker animated:YES completion:nil];
@@ -177,6 +179,59 @@
 	            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
 	            [self presentViewController:imagePicker animated:YES completion:nil];
 	}
+#### 上传图片	
+	eg:
+	
+    NSString *URLStr = [NSString stringWithFormat:@"%@%@",Baseurl,@"/app/uploadUserPhoto"];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:AppDelegateInstance.userInfo.userId forKey:@"userId"];
+    [parameters setObject:@"1" forKey:@"type"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager POST:URLStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+        [SVProgressHUD showWithStatus:@"正在上传..."];
+         NSData *imageData = UIImageJPEGRepresentation(_hearImg, 0.5);
+        //上传时使用当前的系统事件作为文件名
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyyMMddHHmmss";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
+        
+        [formData appendPartWithFileData:imageData
+                                    name:@"imgFile"
+                                fileName:fileName
+                                mimeType:@"image/jpeg"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if([[dic objectForKey:@"error"] integerValue] == -1){
+            [SVProgressHUD showSuccessWithStatus:[dic objectForKey:@"msg"]];
+            if ([[dic objectForKey:@"filename"] hasPrefix:@"http"]) {
+                
+                AppDelegateInstance.userInfo.headImg =[NSString stringWithFormat:@"%@",[dic objectForKey:@"filename"]] ;
+                [[AppDefaultUtil sharedInstance] setDefaultHeaderImageUrl:[NSString stringWithFormat:@"%@", [dic objectForKey:@"filename"]]];
+            }else{
+                
+                AppDelegateInstance.userInfo.headImg =[NSString stringWithFormat:@"%@%@", Baseurl, [dic objectForKey:@"filename"]] ;
+                [[AppDefaultUtil sharedInstance] setDefaultHeaderImageUrl:[NSString stringWithFormat:@"%@%@", Baseurl, [dic objectForKey:@"filename"]]];
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * 600000000ull)), dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:^(){}];
+            });
+        }else{
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+         NSLog(@"Failure >>>>>>>>>>>>>>>>>%@", error.description);
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",error]];
+    }];
+	
 ### 3. 获取指定区域指定时间
 
 #### 获取当地推迟半小时后的时间
@@ -238,3 +293,32 @@
 ### Xcode 7 UIStackView
 
 [UIStackView 教程 ](http://www.cocoachina.com/ios/20150820/13118.html)
+
+### Info.plist 常见字段的作用
+	
+	1. Localiztion native development region --- CFBundleDevelopmentRegion 本地化相关,如果⽤户所在地没有相应的语言资源,则用这个key的value来作为默认
+	2. Bundle display name --- CFBundleDisplayName 设置程序安装后显示的名称。应⽤程序名称限制在10-12个字符,如果超出,将被显示缩写名称。
+	3. Executaule dile -- CFBundleExecutable 程序安装包的名称
+	4. Bundle identidier --- CFBundleIdentidier 该束的唯一标识字符串,该字符串的格式类似 com.yourcompany.yourapp,如果使⽤用模拟器跑你的应用,这个字段没有用处,如果你需要把你的应⽤部署到设备上,你必须⽣成一个证书,⽽而在⽣生成证书的时候,在apple的⽹网站上需要增加相应的app IDs.这⾥有一个字段Bundle identidier,如果这个Bundle identidier是一个完整字符串,那么文件中的这个字段必须和后者完全相同,如果app IDs中的字段含有通配符*,那么文件中的字符串必须符合后者的描述。
+	5. InfoDictionary version --- CFBundleInfoDictionaryVersion Info.plist 格式的版本信息
+	6. Bundle name --- CFBundleName 产品名称
+	7. Bundle OS Type code -- CFBundlePackageType ⽤来标识束类型的四个字母长的代码
+	8. Bundle versions string, short --- CFBundleShortVersionString ⾯向用户市场的束的版本字符串
+	9. Bundle creator OS Type code --- CFBundleSignature 用来标识创建者的四个字母长的代码
+	10. Bundle version --- CFBundleVersion 应⽤程序版本号,每次部署应用程序的一个新版本时, 将会增加这个编号,在app store上用的。
+	11. Application require iPhone environment -- LSRequiresIPhoneOS 用于指示程序包是否只能运行在iPhone OS 系统上。Xcode自动加入这个键,并将它的值设置为true。您不应该改变这个键的值。
+	12. Main storybard dile base name -- UIMainStoryboardFile 这是一个字符串,指定应用程序主nib文件的名称。
+	13. supported interface orientations -- UISupportedInterfaceOrientations 程序默认支持的设备方向。
+	14. Icon file ---- 应用程序图片名称，例：icon.png icon@2x.png
+	15. Application uses Wi-Fi --- 如果应用程序需要wifi才能工作，应该将此属性设置为true。这么做会提示用户，如果没有打开wifi的话，打开wifi。为了节省电力，iphone会在30分钟后自动关闭app中的任何wifi。设置这一个属性可以防止这种情况的发生，并且保持连接处于活动状态。
+	
+#### 	version 与 bulid 的区别
+
+	1，Version是显示对外的版本号，（itunesconect和Appstore用户可以看到），对应O-C中获取version的值：
+	[[[NSBundle mainBundle]infoDictionary]valueForKey:@"CFBundleShortVersionString"]；
+	该版本的版本号是三个分隔的整数组成的字符串。第一个整数代表重大修改的版本，如实现新的功能或重大变化的修订。第二个整数表示的修订，实现较突出的特点。第三个整数代表维护版本
+	例如：1.0.12或者  1.2.3等等
+	
+	2，build别人看不到，只有开发者自己才能看到，相当于内部版本号。【更新版本的时候，也要高于之前的build号】 对应获取方式：
+	[[[NSBundle mainBundle]infoDictionary]valueForKey:@"CFBundleVersion"]；
+	标示（发布或者未发布）的内部版本号。这是一个单调增加的字符串，包括一个或者多个分割的整数。
