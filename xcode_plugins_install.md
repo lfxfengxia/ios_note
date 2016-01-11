@@ -17,3 +17,8 @@
 		
 3. 打开Xcode，在跳出的提示窗口中选择load Bundle，不能选择Skip Bundle
 4. 打开Package Manager，搜索想要的插件，安装之后重启xcode即可使用已安装的插件功能
+5. 常用的Xcode 插件
+
+	- VVDocumenter 注释
+	- KSImageNamed [UIImage imageNamed:];图片名称的显示
+	- SCXcodeSwitchExpander 自动实现switch cases
