@@ -1,10 +1,15 @@
 ### zsh安装
+1. 安装brew命令
 
-1. 自动安装
+		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+2. 安装wget命令 
+	
+		brew install wget
+3. 自动安装
 	
 		wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 		
-2. 设置别名
+4. 设置别名
 
 	vi .zshrc 打开zshrc配置文件
 	
