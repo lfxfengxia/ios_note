@@ -1,3 +1,4 @@
+
 ### zsh安装
 1. 安装brew命令
 
@@ -149,6 +150,77 @@
 		Then I had to add and commit my local changes again
 		$ git add -A
 		$ git commit -m "..."
+		
+###  git合作开发
+1. 创建裸仓库 
+	- 创建裸仓库文件夹，一般以.git作为后缀
+	
+			$ mkdir respo.git （respo.git 为要创建的裸仓库的名字）
+	- 初始化裸仓库
+	
+			$ cd respo.git
+			$ git init --bare
+2. developer A 完成必要的操作
+	- 克隆裸仓库
+	
+			$ git clone <裸仓库的URL或是本地的地址，URL如：https://github.com/lfxfengxia/respo.git，本地地址如：ssh:192.168.1.134/Users/emoneybag/Desktop/respo.git>
+			此时所处分支为master
+	- 添加.gitignore，忽略不必要的提示，如以~和.开头的文件的改变
+		
+			编辑.gitignore,添加如下命令
+			*.DS_Store
+			*~
+			profile
+			保存退出
+	- 完成第一次提交并推送
+	
+			$ git add .gitignore
+			$ git ci -m "commit .gitignore"
+			$ git push
+	- 创建跟踪分支dev，作为推送到裸仓库的一层间接，并推送到裸仓库
+	
+			$ git co -b dev
+			此时所处分支为dev
+			$ git push
+	- 创建自己的开发分支 dev-A，不需要推送到裸仓库
+	
+			$ git co -b dev-A
+			此时所处分支为dev-A，developerA只在此分支进行开发
+3. developer B 必须完成的操作
+	- 克隆裸仓库<同developer A克隆>
+	- 创建自己的开发分支 dev-B, 并推送到裸仓库
+	
+			$ git co -b dev-B
+			此时所处分支为dev-B，developerB只在此分支进行开发
+4. 首次开发的更新操作(以developerA首次开发过程为例)
+	- 修改好项目后，在dev-A分支上进行的操作：
+			
+			$ git st (查看状态，可以看到文件的变化)
+			$ git add *
+			$ git ci -m "提交内容的描述信息"
+			$ git co dev (切换到dev分支)
+	- 切换到dev分支上进行的操作：
+			
+			$ git meger dev-A (dev 与dev-A合并)
+			$ git push origin/dev （将所做的修改提交到裸仓库）
+			$ git co dev-A （切换到自己的开发分枝）
+	- 最后来到自己的开发分支继续进行开发。
+5. 非首次开发中的更新操作(以developerB开发过程为例)
+	- 修改好项目后，在dev-B分支上进行的操作：
+			
+			$ git st (查看状态，可以看到文件的变化)
+			$ git add *
+			$ git ci -m "提交内容的描述信息"
+			$ git co dev (切换到dev分支)
+	- 切换到dev分支上进行的操作：
+	
+			$ git fetch (查看裸仓库是否有变化，有变化从1步骤开始完成以下操作，没有变化直接从2步骤完成以下操作)
+			1.$ git merge origin/dev
+			2.$ git meger dev-B (dev 与dev-B合并，有冲突的话解决冲突并进行步骤3提交，没有冲突的话跳过步骤3）
+			3.$ git ci -a -m "解决冲突的提交" （跟踪并提交）
+			$ git push origin/dev （将所做的修改提交到裸仓库）
+			$ git co dev-B （切换到自己的开发分枝）
+	- 最后来到自己的开发分支继续进行开发。
 
 ###  autojump的安装
 
