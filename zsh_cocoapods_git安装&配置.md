@@ -202,7 +202,7 @@
 	- 切换到dev分支上进行的操作：
 			
 			$ git meger dev-A (dev 与dev-A合并)
-			$ git push origin/dev （将所做的修改提交到裸仓库）
+			$ git push origin dev （将所做的修改提交到裸仓库）
 			$ git co dev-A （切换到自己的开发分枝）
 	- 最后来到自己的开发分支继续进行开发。
 5. 非首次开发中的更新操作(以developerB开发过程为例)
@@ -218,7 +218,7 @@
 			1.$ git merge origin/dev
 			2.$ git meger dev-B (dev 与dev-B合并，有冲突的话解决冲突并进行步骤3提交，没有冲突的话跳过步骤3）
 			3.$ git ci -a -m "解决冲突的提交" （跟踪并提交）
-			$ git push origin/dev （将所做的修改提交到裸仓库）
+			$ git push origin dev （将所做的修改提交到裸仓库）
 			$ git co dev-B （切换到自己的开发分枝）
 	- 最后来到自己的开发分支继续进行开发。
 
