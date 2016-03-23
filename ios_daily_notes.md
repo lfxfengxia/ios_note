@@ -322,3 +322,88 @@
 	2，build别人看不到，只有开发者自己才能看到，相当于内部版本号。【更新版本的时候，也要高于之前的build号】 对应获取方式：
 	[[[NSBundle mainBundle]infoDictionary]valueForKey:@"CFBundleVersion"]；
 	标示（发布或者未发布）的内部版本号。这是一个单调增加的字符串，包括一个或者多个分割的整数。
+	
+### 	动画
+
+    CALayer *groupLayer = [[CALayer alloc] init];
+    groupLayer.frame = CGRectMake(60, 100, 50, 50);
+    groupLayer.cornerRadius = 10;
+    groupLayer.backgroundColor = [[UIColor purpleColor] CGColor];
+    [self.view.layer addSublayer:groupLayer];
+
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.5];
+    scaleAnimation.autoreverses = YES;
+    scaleAnimation.repeatCount = MAXFLOAT;
+    scaleAnimation.duration = 0.8;
+    
+    CABasicAnimation *moveAnimationY = [CABasicAnimation animationWithKeyPath:@"position"];
+    moveAnimationY.fromValue = [NSValue valueWithCGPoint:groupLayer.position];
+    moveAnimationY.toValue = [NSValue valueWithCGPoint:CGPointMake(320 - 80,
+                                                                  groupLayer.position.y)];
+    moveAnimationY.autoreverses = YES;
+    moveAnimationY.repeatCount = MAXFLOAT;
+    moveAnimationY.duration = 8;
+    
+    CABasicAnimation *moveAnimation1 = [CABasicAnimation animationWithKeyPath:@"position"];
+    moveAnimation1.fromValue = [NSValue valueWithCGPoint:groupLayer.position];
+    moveAnimation1.toValue = [NSValue valueWithCGPoint:CGPointMake(kWidth,
+                                                                  groupLayer.position.y + 100)];
+    moveAnimation1.autoreverses = NO;
+    moveAnimation1.repeatCount = 1;
+    moveAnimation1.duration = 8;
+    
+    CABasicAnimation *moveAnimation2 = [CABasicAnimation animationWithKeyPath:@"position"];
+    moveAnimation2.fromValue = [NSValue valueWithCGPoint:CGPointMake(kWidth,
+                                                                     groupLayer.position.y + 100)];
+    moveAnimation2.toValue = [NSValue valueWithCGPoint:CGPointMake(0,
+                                                                   groupLayer.position.y + 200)];
+    moveAnimation2.autoreverses = NO;
+    moveAnimation2.repeatCount = 1;
+    moveAnimation2.duration = 8;
+    
+    CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
+    rotateAnimation.fromValue = [NSNumber numberWithFloat:0.0];
+    rotateAnimation.toValue = [NSNumber numberWithFloat:6.0 * M_PI];
+    rotateAnimation.autoreverses = YES;
+    rotateAnimation.repeatCount = MAXFLOAT;
+    rotateAnimation.duration = 2;
+    
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.duration = 2;
+    groupAnnimation.autoreverses = YES;
+    groupAnnimation.animations = @[moveAnimation1,moveAnimation2];
+    groupAnnimation.repeatCount = MAXFLOAT;
+    //开演
+    [groupLayer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+    
+    
+    -------------------
+    UIImageView *balloon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"2balloon"]];
+    balloon.frame = CGRectMake(60, 100, kWidth * 0.18, kWidth * 0.18 + 10);
+    [self.view addSubview:balloon];
+    
+    CAKeyframeAnimation *keyframePath = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    //贝塞尔曲线
+    //1.指定贝塞尔曲线的半径
+    CGFloat  radius = [UIScreen mainScreen].bounds.size.height / 2.0;
+    //01:圆心
+    //02:半径
+    //03:开始的角度
+    //04:结束的角度
+    //05:旋转方向 (YES表示顺时针 NO表示逆时针)
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(0, radius) radius:radius startAngle:-M_PI_2 endAngle:M_PI_2 clockwise:YES];
+    //将贝塞尔曲线作为运动轨迹
+    keyframePath.path = path.CGPath;
+    //2.创建第二组关键帧动画,让热气球在运动的时候  由小--->大--->小   ;
+    CAKeyframeAnimation *keyFrameScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    //通过一组数据修改热气球的大小
+    keyFrameScale.values = @[@1.0,@1.2,@1.4,@1.6,@1.8,@1.6,@1.4,@1.2,@1.0];
+    //创建动画分组对象
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    //将两个动画效果添加到分组动画中
+    group.animations = @[keyframePath,keyFrameScale];
+    group.duration = 12;
+    group.repeatCount = 1000;
+    [balloon.layer addAnimation:group forKey:nil];
