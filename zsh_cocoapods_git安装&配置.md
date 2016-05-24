@@ -163,7 +163,7 @@
 2. developer A 完成必要的操作
 	- 克隆裸仓库
 	
-			$ git clone <裸仓库的URL或是本地的地址，URL如：https://github.com/lfxfengxia/respo.git，本地地址格式：ssh:device_name@device_ip/bare_respositore_absolute_filepath（如：ssh:emoenybag@192.168.1.134/Users/emoneybag/Desktop/respo.git）>
+			$ git clone <裸仓库的URL或是本地的地址，URL如：https://github.com/lfxfengxia/respo.git，本地地址格式：ssh:device_name@device_ip/bare_respositore_absolute_filepath（如：ssh:emoneybag@192.168.1.134/Users/emoneybag/Desktop/respo.git）>
 			此时所处分支为master
 	- 添加.gitignore，忽略不必要的提示，如以~和.开头的文件的改变
 		
