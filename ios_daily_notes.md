@@ -407,3 +407,48 @@
     group.duration = 12;
     group.repeatCount = 1000;
     [balloon.layer addAnimation:group forKey:nil];
+    
+###     UIWebView 保存网络图片
+
+
+	- (void)viewDidLoad
+	{
+		self.webView.delegate = self;
+		[self.webView  loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://image.baidu.com/wisebrowse/index?tag1=%E7%BE%8E%E5%A5%B3&tag2=%E5%85%A8%E9%83%A8&tag3=&pn=0&rn=10&from=index&fmpage=index&pos=magic#/home"]]];
+		UILongPressGestureRecognizer * longPressed = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
+		longPressed.delegate = self;
+		[self.webView addGestureRecognizer:longPressed];
+	}
+	- (void)longPressed:(UITapGestureRecognizer*)recognizer{
+		//只在长按手势开始的时候才去获取图片的url
+		if (recognizer.state != UIGestureRecognizerStateBegan) {
+			return;
+		}
+		CGPoint touchPoint = [recognizer locationInView:self.webView];
+		NSString *js = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", touchPoint.x, touchPoint.y];
+		NSString *urlToSave = [self.webView stringByEvaluatingJavaScriptFromString:js];
+		if (urlToSave.length == 0) {
+			return;
+		}
+		NSLog(@"获取到图片地址：%@",urlToSave);
+		NSData *data = [NSData dataWithContentsOfURL:urlToSave];
+		UIImage *image = [UIImage imageWithData:data];
+		[self saveImageToPhotos:image];
+	}
+	
+	- (void)saveImageToPhotos:(UIImage*)image {
+    
+	    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+	}
+
+	// 指定回调方法
+	- (void)image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo  {
+	
+	    if(error != NULL){
+	        NSLog(@"保存失败");
+	    }else{
+	
+	        NSLog(@"保存成功");
+	    }
+	}
+	
