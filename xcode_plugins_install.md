@@ -10,6 +10,10 @@
 		7FDF5C7A-131F-4ABB-9EDC-8C5F8F0B8A90
 		Xcode 6.0.1的是这个
 		C4A681B0-4A26-480E-93EC-1218098B9AA0
+
+        //查看Xcode UUID的方法：
+        1. 在终端执行 defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID
+        2. 在/Applications目录中找到Xcode.app，右键”显示包内容”，进入Contents文件夹，双击Info.plist打开，找到DVTPlugInCompatibilityUUID，拷贝后面的字符串
 		
 		$ cd Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/
 		$ open .
