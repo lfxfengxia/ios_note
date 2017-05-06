@@ -54,7 +54,7 @@
 2. 修改 sources 为 taobao
 	
 		$ gem sources --remove https://rubygems.org/
-		$ gem sources --a http://ruby.taobao.org/
+		$ gem sources --a https://ruby.taobao.org/
 	
 3. 安装
 

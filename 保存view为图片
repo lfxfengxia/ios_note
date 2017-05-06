@@ -1,0 +1,13 @@
+
+- (UIImage *)crateImageWithView:(UIView *)view {
+    
+    //开始绘制并确定绘制内容区域
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, [UIScreen mainScreen].scale);
+    //用view.layer渲染绘制的内容
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    //从绘制的内容获得image
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    //结束绘制
+    UIGraphicsEndImageContext();
+    return image;
+}
