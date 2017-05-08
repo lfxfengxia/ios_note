@@ -43,7 +43,7 @@
 		cd ios_note
 		cp .vimrc ~/.vimrc
 
-### cocoapods 安装
+### cocoapods 安装 (安装报错问题详见http://www.cnblogs.com/hankkk/p/5703050.html)
 
 1. 查看 sources
 	
