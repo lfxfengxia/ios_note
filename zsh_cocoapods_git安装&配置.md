@@ -54,12 +54,23 @@
 2. 修改 sources 为 taobao
 	
 		$ gem sources --remove https://rubygems.org/
-		$ gem sources --a https://ruby.taobao.org/
+		//$ gem sources -a https://ruby.taobao.org/   //淘宝镜像已经失效
+        $ gem sources -a https://gems.ruby-china.org/
 	
 3. 安装
 
 		sudo gem install cocoapods
-		
+        1.安装报错（hostname "upyun.gems.ruby-china.org" does not match the server certificate） 更新gem
+        gem update --system
+        2.更新gem报错（You don't have write permissions for the /Library/Ruby/Gems/2.0.0 directory.）安装最新ruby 通过安装rvm 安装最新ruby
+            a. ruby -v //查看当前ruby version
+            b. curl -L get.rvm.io | bash -s stable  //安装rvm
+            c. rvm list known //查看可按装的版本 找到最新的ruby 版本号（如2.4.0）
+            d. rvm install 2.4.0 //安装ruby
+            e. ruby -v //安装成功 查看ruby version ruby 2.4.0p0
+        3.sudo gem install cocoapods //再次安装cocoapods
+        4.pod setup
+        
 4. 使用
 
 		1. 进入项目路径下，
