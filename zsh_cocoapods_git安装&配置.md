@@ -1,26 +1,26 @@
 
 
-##### 终端命令除了cd都不能使用的情况下的处理
+### 终端命令除了cd都不能使用的情况下的处理
 
-1.在终端输入 (首先cd到home目录下)
+1. 在终端输入 (首先cd到home目录下)
     
         export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin
-2.此时可以正常使用vi命令
+2. 此时可以正常使用vi命令
         
         vi.zshrc 
-3.打开zshrc 添加路径
+3. 打开zshrc 添加路径
 
         export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
-4.重启zshrc
+4. 重启zshrc
         
         source .zshrc
 
-    如果vim .zs 使用tab不会自动补齐，反而报如下错误错：
-    _arguments:451: _vim_files: function definition file not found
-    _arguments:451: _vim_files: function definition file not found
-    _arguments:451: _vim_files: function definition file not found
-    解决办法
-    rm ~/.zcompdump*
+        如果vim .zs 使用tab不会自动补齐，反而报如下错误错：
+        _arguments:451: _vim_files: function definition file not found
+        _arguments:451: _vim_files: function definition file not found
+        _arguments:451: _vim_files: function definition file not found
+        解决办法
+        rm ~/.zcompdump*
 
 ### zsh安装
 1. 安装brew命令
