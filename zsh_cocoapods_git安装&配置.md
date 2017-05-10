@@ -15,6 +15,13 @@
         
         source .zshrc
 
+    如果vim .zs 使用tab不会自动补齐，反而报如下错误错：
+    _arguments:451: _vim_files: function definition file not found
+    _arguments:451: _vim_files: function definition file not found
+    _arguments:451: _vim_files: function definition file not found
+    解决办法
+    rm ~/.zcompdump*
+
 ### zsh安装
 1. 安装brew命令
 
