@@ -451,4 +451,37 @@
 	        NSLog(@"保存成功");
 	    }
 	}
+
+
+### dispatch_group 多线程实现网络请求
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+            dispatch_group_t serviceGroup = dispatch_group_create();
+
+            //请求1
+            dispatch_group_enter(serviceGroup);
+            [BaseTools requestWithPath:@"index.do" withMethod:@"POST"  needSetHead:YES params:nil success:^(id responseObject) {
+
+                dispatch_group_leave(serviceGroup);
+            } failure:^(id error) {
+
+            }];
+
+
+            //请求1
+            dispatch_group_enter(serviceGroup);
+            [BaseTools requestWithPath:@"index.do" withMethod:@"POST"  needSetHead:YES params:nil success:^(id responseObject) {
+
+                dispatch_group_leave(serviceGroup);
+            } failure:^(id error) {
+
+            }];
+
+            dispatch_group_notify(serviceGroup, dispatch_get_main_queue(), ^{
+                // 更新界面
+            });
+        });
+
+        ‘注释’： 该操作实现了 对请求1 请求2 再serviceGroup异步处理，当serviceGroup的队列里的操作全部执行完毕，dispatch_group_notify使用通知进行ui更新
 	
