@@ -461,7 +461,7 @@
 
             //请求1
             dispatch_group_enter(serviceGroup);
-            [BaseTools requestWithPath:@"index.do" withMethod:@"POST"  needSetHead:YES params:nil success:^(id responseObject) {
+            [NetworkRequest requestWithPath:@"index.do" withMethod:@"POST"  needSetHead:YES params:nil success:^(id responseObject) {
 
                 dispatch_group_leave(serviceGroup);
             } failure:^(id error) {
@@ -471,7 +471,7 @@
 
             //请求1
             dispatch_group_enter(serviceGroup);
-            [BaseTools requestWithPath:@"index.do" withMethod:@"POST"  needSetHead:YES params:nil success:^(id responseObject) {
+            [NetworkRequest requestWithPath:@"index.do" withMethod:@"POST"  needSetHead:YES params:nil success:^(id responseObject) {
 
                 dispatch_group_leave(serviceGroup);
             } failure:^(id error) {
