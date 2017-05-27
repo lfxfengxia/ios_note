@@ -162,6 +162,6 @@ pod search PodDemo
 pod 'PodDemo'，'~>0.0.1'
 ```
 
-
+[pod library 更简单参考] (http://www.jianshu.com/p/2f0458c79a3e)
 
 	
