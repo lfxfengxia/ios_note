@@ -1,8 +1,0 @@
-1. 用一张半透明的图片做背景。一般采用工程中尽量少加入资源，能不用图片的尽量不用图片
-2. 使用colorWithWhite：alpha：方法
-    view.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];
-    white后面的参数表示灰度，从0-1之间表示从黑到白的变化，alpha就是你想调整的透明度。这个方法用于非黑即白的半透明背景基色，不能设置其他颜色（彩色）的半透明
-3. 使用colorWithRed:green:blue:alpha:方法
-4. 使用colorWithAlphaComponent:方法
-   UIColor *color = [UIColor blackColor];
-   view.backgroundColor = [color colorWithAlphaComponent:0.5];

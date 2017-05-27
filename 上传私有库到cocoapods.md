@@ -33,7 +33,7 @@
 	```
 	Pod::Spec.new do |s|
    s.name         = "PodDemo"
-   s.version      = "0.0.1"
+   s.version      = "1.0.0"
    s.summary      = "a test for pod"
    s.description  = <<-DESC
                       a test about how to upload sdk to   cocoapods 
@@ -43,7 +43,7 @@
    s.license      = { :type => "MIT"， :file => "LICENSE" }
    s.author             = { "username" => "github_emil_address" }
    s.platform     = :ios
-   s.source       = { :git => "https://github.com/github_userName/PodDemo.git"， :tag => "0.0.1" }
+   s.source       = { :git => "https://github.com/github_userName/PodDemo.git"， :tag => "1.0.0" }
    s.source_files  = "PodDemo"， "PodDemo/**/*.{h，m}"
    # s.exclude_files = "Classes/Exclude"
    # s.public_header_files = "PodDemo/Classes/Foundation/Foundation_Category.h"，"PodDemo/Classes/**/*.h"
@@ -156,10 +156,15 @@ rm ~/Library/Caches/CocoaPods/search_index.json
 ```
 pod search PodDemo
 ```
-搜索成功返回数据包含pod方法
+搜索成功返回数据
 
 ```
-pod 'PodDemo'，'~>0.0.1'
+-> PodDemo (1.0.0)
+   a test for pod
+   pod 'PodDemo', '~> 1.1.0'
+   - Homepage: https://github.com/user_name/PodDemo
+   - Source:   https://github.com/user_name/PodDemo.git
+   - Versions: 1.0.0 [master repo]
 ```
 
 [pod library 更简单参考] (http://www.jianshu.com/p/2f0458c79a3e)
