@@ -162,7 +162,8 @@
 			    dt = difftool
 			    l = log --stat
 			    cp = cherry-pick
-			    ca = commit -a
+			    cam = commit -a -m
+			    cme = commit --amend
 			    b = branch
                 lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%    Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 			----------------------------------------------------------
