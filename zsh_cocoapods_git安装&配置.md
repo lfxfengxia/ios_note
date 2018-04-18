@@ -118,11 +118,16 @@
    RuntimeError - [Xcodeproj] Unknown object version.
             
    解决办法：
+  	$ gem install cocoapods --pre //更新cocoapods
+	```
+	```
+	其他命令
   	$ gem update --system //更新gem
 	$ gem install rubygems-update //安装rubygems
  	$ update_rubygems //更新rubygems
-  	$ gem install cocoapods --pre //更新cocoapods
+ 	
 	```
+	
 ### git 配置
 
 * 配置个人信息
