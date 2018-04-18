@@ -110,7 +110,19 @@
 		5. 在以后使用时，只需要更新
 			$ pod update
 		6. 当你拿到别人的使用cocoapods管理的项目时，首先炫耀做的就是更新，否则会报找不到各种第三方库的错误
-		
+
+5. pod init 报错处理
+
+	```
+   可能pod版本更新或是一些依赖文件更新之后 导致使用pod init 或者 pod update 以及pod的一些相关命令都会报如下错误
+   RuntimeError - [Xcodeproj] Unknown object version.
+            
+   解决办法：
+  	$ gem update --system //更新gem
+	$ gem install rubygems-update //安装rubygems
+ 	$ update_rubygems //更新rubygems
+  	$ gem install cocoapods --pre //更新cocoapods
+	```
 ### git 配置
 
 * 配置个人信息
