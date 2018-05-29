@@ -128,6 +128,23 @@
  	
 	```
 	
+6. Xcode升级导致新版本Xcode创建项目 pod install 失败
+
+	```
+		报错信息：
+			Unable to add a source with url `https://github.com/CocoaPods/Specs.git` named `master-1`.
+		解决办法：
+			找到repos文件夹下的master 删除master 并重新下载即可
+			1. 打开终端
+			2. $ cd
+			3. $ cd .cocoapods/repos
+			4. $ git clone https://git.coding.net/CocoaPods/Specs.git ~/.cocoapods/repos/master 
+
+			一般操作到这就可以了，如果还是还是报错的话，可以进行如下操作：
+			1. pod repo add master https://github.com/CocoaPods/Specs.git
+			2. $ pod setup
+	```
+	
 ### git 配置
 
 * 配置个人信息
