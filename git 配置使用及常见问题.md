@@ -63,7 +63,7 @@
 		git branch -d/D branchname 删除本地分支
 		git push origin --delete branchname 删除远端分支
 		git commit --amend 修改已经commit的log
-		git reset –hard hashValue 根据hash值回滚到已经commit的版本
+		git reset --hard hashValue 根据hash值回滚到已经commit的版本
 
 * git error 的处理
 
