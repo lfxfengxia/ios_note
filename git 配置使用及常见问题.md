@@ -58,12 +58,14 @@
 		
 * git 易忘记的命令
 
-		git reset HEAD filname 取消放入暂存的文件
-		git checkout -- filename 取消对文件的修改，进而使用git reset HEAD filename 取消对文件的暂存
-		git branch -d/D branchname 删除本地分支
-		git push origin --delete branchname 删除远端分支
-		git commit --amend 修改已经commit的log
-		git reset --hard hashValue 根据hash值回滚到已经commit的版本
+		git reset HEAD filname //取消放入暂存的文件
+		git checkout -- filename //取消对文件的修改，进而使用git reset HEAD filename //取消对文件的暂存
+		git branch -d/D branchname //删除本地分支
+		git push origin --delete branchname //删除远端分支
+		git commit --amend //修改已经commit的log
+		git reset --hard hashValue //根据hash值回滚到已经commit的版本
+		如果已经推送到远端分支，这个时候想撤回，需要上一步完成之后，执行下面命令
+		git push origin <远端分支名> --force //不加--fore 会提示远端有更新，需要你拉取，更新的内容其实就是你想撤回的提交
 
 * git error 的处理
 
